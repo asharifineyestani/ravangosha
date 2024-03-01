@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/books', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBooks']);
+Route::get('/bookInfo', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBookInfo']);
