@@ -6,13 +6,36 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\Seller;
+use App\Models\BookStock;
 
 class Tadrij extends Controller
 {
 
-    public function extractBooks()
+    public function byCategory($category)
     {
-        $url = 'https://betadrij.ir/subject/self-development/';
+        https://betadrij.ir/subject/self-development/page/2/
+
+        $baseURL = 'https://betadrij.ir/subject/'.$category.'/page/';
+        $pageCount = 13;
+
+        $urls = [];
+
+        for ($page = 1; $page <= $pageCount; $page++) {
+            $urls[] = $baseURL . $page;
+        }
+
+
+       foreach ($urls as $url) {
+          $this->extractBooks($url);
+       }
+
+    }
+
+    public function extractBooks($url)
+    {
         $client = new Client();
         $response = $client->get($url);
         $html = $response->getBody()->getContents();
@@ -35,16 +58,25 @@ class Tadrij extends Controller
                 'link' => $link,
                 'image' => $image,
             ];
+
+
         });
 
+        foreach($books as $book){
+            $this->extractBookInfo($book['link']);
+        }
+
+
+
+
+
         return $books;
+
     }
 
 
-    public function extractBookInfo()
+    public function extractBookInfo($url, $save = true)
     {
-        // Example URL
-        $url = 'https://betadrij.ir/shop/staring-at-the-sun/';
 
         // Send an HTTP request to the provided URL
         $client = new Client();
@@ -60,7 +92,10 @@ class Tadrij extends Controller
             $bookName = $crawler->filter('h1')->text();
             $authorName = $crawler->filter('a[rel="tag"]')->eq(0)->text();
             $translatorName = $crawler->filter('a[rel="tag"]')->eq(1)->text();
-            $publicationName = $crawler->filter('a[rel="tag"]')->eq(2)->text();
+
+            $publicationName = $crawler->filter('a[rel="tag"]')->eq(2)->count() > 0
+                ? $crawler->filter('a[rel="tag"]')->eq(2)->text()
+                : '';
 
             // Extract the book image URL if it exists
             $largeImageElement = $crawler->filter('picture[data-large_image]');
@@ -89,28 +124,67 @@ class Tadrij extends Controller
             $authorImageUrl = $authorImageElement->attr('src');
 
             // Store the extracted information in an array
-            $bookInfo = [
-                'book_name' => $bookName,
+
+
+            $bookData = [
                 'author_name' => $authorName,
-                'translator_name' => $translatorName,
-                'publication_name' => $publicationName,
+                'author_image_url' => $authorImageUrl,
+                'book_title' => $bookName,
                 'book_image_url' => $dataLargeImageValue,
-                'publish_date_ad' => $publishDateAd,
-                'publish_date_shamsi' => $publishDateShamsi,
+                'translator' => $translatorName,
+                'publication' => $publicationName,
+                'publish_date' => $publishDateAd,
                 'isbn' => $isbn,
                 'cover_type' => $coverType,
                 'size' => $size,
                 'page_count' => $pageCount,
                 'print_number' => $printNumber,
-                'author_image_url' => $authorImageUrl,
+
             ];
 
+            if ($save){
+                $this->saveBookDataToDatabase($bookData);
+            }
+
             // Return the array with extracted information
-            return $bookInfo;
+            return $bookData;
         } else {
             echo "Error: Unable to retrieve the page. Status Code: {$response->getStatusCode()}\n";
             // Return an empty array in case of an error
             return [];
         }
+    }
+
+    public function saveBookDataToDatabase($bookData)
+    {
+        // 1. Author
+        $author = Author::where('name', $bookData['author_name'])->first();
+        if (!$author) {
+            $author = Author::create([
+                'name' => $bookData['author_name'],
+                'image_url' => $bookData['author_image_url'],
+//                'description' => $bookData['author_description'],
+            ]);
+        }
+
+        // 2. Book
+        $book = Book::where('title', $bookData['book_title'])->first();
+        if (!$book) {
+            $book = Book::create([
+                'title' => $bookData['book_title'],
+                'book_image_url' => $bookData['book_image_url'],
+                'translator' => $bookData['translator'],
+                'publication' => $bookData['publication'],
+                'publish_date' => $bookData['publish_date'],
+                'isbn' => $bookData['isbn'],
+                'cover_type' => $bookData['cover_type'],
+                'size' => $bookData['size'],
+                'page_count' => $bookData['page_count'],
+                'print_number' => $bookData['print_number'],
+                'author_id' => $author->id,
+            ]);
+        }
+
+
     }
 }

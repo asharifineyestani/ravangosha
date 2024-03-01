@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/books/by-category/{category}', [\App\Http\Controllers\Crawler\Tadrij::class, 'byCategory']);
 Route::get('/books', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBooks']);
-Route::get('/bookInfo', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBookInfo']);
+Route::get('/books/info', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBookInfo']);
