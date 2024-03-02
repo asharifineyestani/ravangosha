@@ -12,7 +12,7 @@ class Book extends Model
     protected $fillable = [
         'title', 'description', 'book_image_url', 'author_id',
         'translator', 'publication', 'isbn', 'cover_type', 'size',
-        'page_count', 'print_number', 'publish_date'
+        'page_count', 'print_number', 'publish_date','slug'
     ];
 
     public function author()
@@ -23,5 +23,10 @@ class Book extends Model
     public function stocks()
     {
         return $this->hasMany(BookStock::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
