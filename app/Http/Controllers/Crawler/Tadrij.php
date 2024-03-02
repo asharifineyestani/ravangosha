@@ -74,6 +74,14 @@ class Tadrij extends Controller
 
     }
 
+    public function getBookSlug($url): string
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+
+       return pathinfo($path, PATHINFO_BASENAME);
+
+    }
+
 
     public function extractBookInfo($url, $save = true)
     {
@@ -99,6 +107,12 @@ class Tadrij extends Controller
 
             // Extract the book image URL if it exists
             $largeImageElement = $crawler->filter('picture[data-large_image]');
+
+
+            $bookDescription = $crawler->filter('#tab-description')->count() > 0
+                ? $crawler->filter('#tab-description')->text()
+                : '';
+
 
             // Extract the value of the data-large_image attribute
             $dataLargeImageValue = $largeImageElement->attr('data-large_image');
@@ -127,9 +141,11 @@ class Tadrij extends Controller
 
 
             $bookData = [
+                'slug' => $this->getBookSlug($url),
                 'author_name' => $authorName,
                 'author_image_url' => $authorImageUrl,
                 'book_title' => $bookName,
+                'book_description' => $bookDescription,
                 'book_image_url' => $dataLargeImageValue,
                 'translator' => $translatorName,
                 'publication' => $publicationName,
@@ -171,7 +187,9 @@ class Tadrij extends Controller
         $book = Book::where('title', $bookData['book_title'])->first();
         if (!$book) {
             $book = Book::create([
+                'slug' => $bookData['slug'],
                 'title' => $bookData['book_title'],
+                'description' => $bookData['book_description'],
                 'book_image_url' => $bookData['book_image_url'],
                 'translator' => $bookData['translator'],
                 'publication' => $bookData['publication'],
