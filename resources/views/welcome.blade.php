@@ -10,7 +10,7 @@
 <body>
 <h1>Books List</h1>
 <ul>
-    <li><a href="/books">Extract Books</a></li>
+    <li><a href="/books/by-category/self-development">Extract Books</a></li>
     <li><a href="/books/info">Extract Book Info</a></li>
 </ul>
 </body>

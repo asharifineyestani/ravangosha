@@ -11,11 +11,19 @@ use App\Models\Book;
 use App\Models\Seller;
 use App\Models\BookStock;
 
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
+use Intervention\Image\Image;
+
 class Tadrij extends Controller
 {
 
     public function byCategory($category)
     {
+
+        ini_set('max_execution_time', 1200000);
+
         https://betadrij.ir/subject/self-development/page/2/
 
         $baseURL = 'https://betadrij.ir/subject/'.$category.'/page/';
@@ -117,6 +125,9 @@ class Tadrij extends Controller
             // Extract the value of the data-large_image attribute
             $dataLargeImageValue = $largeImageElement->attr('data-large_image');
 
+
+            $ImageUrl = $this->downloadImage($dataLargeImageValue, $this->getBookSlug($url));
+
             // Helper function to get text content if the node exists
             $getTextIfExists = function ($crawler, $selector) {
                 $node = $crawler->filter($selector);
@@ -146,7 +157,7 @@ class Tadrij extends Controller
                 'author_image_url' => $authorImageUrl,
                 'book_title' => $bookName,
                 'book_description' => $bookDescription,
-                'book_image_url' => $dataLargeImageValue,
+                'book_image_url' => $ImageUrl,
                 'translator' => $translatorName,
                 'publication' => $publicationName,
                 'publish_date' => $publishDateAd,
@@ -204,5 +215,28 @@ class Tadrij extends Controller
         }
 
 
+    }
+
+    public function downloadImage($imageUrl, $newFilename)
+    {
+        // دریافت محتوای عکس از طریق URL
+        $imageContent = file_get_contents($imageUrl);
+
+        // دریافت پسوند فایل اصلی
+        $originalExtension = pathinfo($imageUrl, PATHINFO_EXTENSION);
+
+        // اضافه کردن پسوند به نام جدید فایل
+        $newFilenameWithExtension = "{$newFilename}.{$originalExtension}";
+
+        // بررسی وجود فایل با نام جدید در پوشه images
+        if (!Storage::exists("public/images/{$newFilenameWithExtension}")) {
+            // ذخیره فایل با نام جدید و پسوند در دیسک public در زیرپوشه images
+            Storage::put("public/images/{$newFilenameWithExtension}", $imageContent);
+        }
+
+        // دریافت آدرس ذخیره شده
+        $storedImagePath = Storage::url("images/{$newFilenameWithExtension}");
+
+        return $storedImagePath;
     }
 }
