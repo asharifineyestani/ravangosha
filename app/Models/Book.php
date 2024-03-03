@@ -12,7 +12,7 @@ class Book extends Model
     protected $fillable = [
         'title', 'description', 'book_image_url', 'author_id',
         'translator', 'publication', 'isbn', 'cover_type', 'size',
-        'page_count', 'print_number', 'publish_date','slug'
+        'page_count', 'print_number', 'publish_date','slug','category_id'
     ];
 
     public function author()
