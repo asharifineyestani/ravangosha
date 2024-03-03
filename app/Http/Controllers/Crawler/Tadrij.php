@@ -3,30 +3,52 @@
 namespace App\Http\Controllers\Crawler;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Category;
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use App\Models\Author;
 use App\Models\Book;
-use App\Models\Seller;
-use App\Models\BookStock;
-
-
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
-use Intervention\Image\Image;
+use Illuminate\Support\Facades\Http;
 
 class Tadrij extends Controller
 {
 
+    public $categoryId;
+
+
+    public function downloadImageForAuthors()
+    {
+        ini_set('max_execution_time', 1200000);
+        $authors = Author::where('id','>',308)->get();
+
+        foreach ($authors as $author) {
+            $imageUrl = $author->image_url;
+
+            // دانلود تصویر
+            $response = Http::get($imageUrl);
+            $imageData = $response->body();
+
+            // ذخیره تصویر در پوشه‌ی storage/app/authors
+            $imageName = "author_{$author->id}.jpg";
+            $path = "authors/{$imageName}";
+            Storage::put($path, $imageData);
+
+            // آدرس تصویر جدید را به جایگزین image_url در دیتابیس کنید
+            $author->update(['image_url' => $path]);
+        }
+
+    }
     public function byCategory($category)
     {
+
+        $this->categoryId = Category::query()->where('slug', $category)->value('id');
 
         ini_set('max_execution_time', 1200000);
 
         https://betadrij.ir/subject/self-development/page/2/
 
-        $baseURL = 'https://betadrij.ir/subject/'.$category.'/page/';
+        $baseURL = 'https://betadrij.ir/subject/' . $category . '/page/';
         $pageCount = 13;
 
         $urls = [];
@@ -36,9 +58,9 @@ class Tadrij extends Controller
         }
 
 
-       foreach ($urls as $url) {
-          $this->extractBooks($url);
-       }
+        foreach ($urls as $url) {
+            $this->extractBooks($url);
+        }
 
     }
 
@@ -46,6 +68,7 @@ class Tadrij extends Controller
     {
         $client = new Client();
         $response = $client->get($url);
+
         $html = $response->getBody()->getContents();
 
         $crawler = new Crawler($html);
@@ -70,15 +93,13 @@ class Tadrij extends Controller
 
         });
 
-        foreach($books as $book){
+        foreach ($books as $book) {
             $this->extractBookInfo($book['link']);
         }
 
 
-
-
-
         return $books;
+
 
     }
 
@@ -86,7 +107,7 @@ class Tadrij extends Controller
     {
         $path = parse_url($url, PHP_URL_PATH);
 
-       return pathinfo($path, PATHINFO_BASENAME);
+        return pathinfo($path, PATHINFO_BASENAME);
 
     }
 
@@ -123,10 +144,13 @@ class Tadrij extends Controller
 
 
             // Extract the value of the data-large_image attribute
-            $dataLargeImageValue = $largeImageElement->attr('data-large_image');
 
 
-            $ImageUrl = $this->downloadImage($dataLargeImageValue, $this->getBookSlug($url));
+            if ($largeImageElement->count() > 0) {
+                $dataLargeImageValue = $largeImageElement->attr('data-large_image');
+                $ImageUrl = $this->downloadImage($dataLargeImageValue, $this->getBookSlug($url));
+            } else    $ImageUrl = '';
+
 
             // Helper function to get text content if the node exists
             $getTextIfExists = function ($crawler, $selector) {
@@ -169,7 +193,7 @@ class Tadrij extends Controller
 
             ];
 
-            if ($save){
+            if ($save) {
                 $this->saveBookDataToDatabase($bookData);
             }
 
@@ -208,9 +232,10 @@ class Tadrij extends Controller
                 'isbn' => $bookData['isbn'],
                 'cover_type' => $bookData['cover_type'],
                 'size' => $bookData['size'],
-                'page_count' => $bookData['page_count'],
+//                'page_count' => $bookData['page_count'],
                 'print_number' => $bookData['print_number'],
                 'author_id' => $author->id,
+                'category_id' => $this->categoryId,
             ]);
         }
 

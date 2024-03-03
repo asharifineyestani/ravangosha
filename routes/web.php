@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::resource('books', \App\Http\Controllers\BookController::class);
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/curl/authors', [\App\Http\Controllers\Crawler\Tadrij::class, 'downloadImageForAuthors']);
 Route::get('/books/by-category/{category}', [\App\Http\Controllers\Crawler\Tadrij::class, 'byCategory']);
-Route::get('/books', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBooks']);
+//Route::get('/books', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBooks']);
 Route::get('/books/info', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBookInfo']);
