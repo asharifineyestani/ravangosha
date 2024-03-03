@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('books', \App\Http\Controllers\BookController::class);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index']);
 
 Route::get('/curl/authors', [\App\Http\Controllers\Crawler\Tadrij::class, 'downloadImageForAuthors']);
 Route::get('/books/by-category/{category}', [\App\Http\Controllers\Crawler\Tadrij::class, 'byCategory']);

@@ -1,17 +1,46 @@
-<!-- resources/views/crawler/books_list.blade.php -->
+@extends('layouts.master')
+@section('content')
+    <!-- header (relative style) -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books List</title>
-</head>
-<body>
-<h1>Books List</h1>
-<ul>
-    <li><a href="/books/by-category/self-development">Extract Books</a></li>
-    <li><a href="/books/info">Extract Book Info</a></li>
-</ul>
-</body>
-</html>
+    <!-- end header -->
+
+    <!-- home -->
+    {{--    @include('sections.articles')--}}
+    <!-- end home -->
+
+    <!-- catalog -->
+    <div class="catalog">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    @include('sections.books_header')
+
+                    @include('sections.books')
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button class="catalog__more" type="button">نمایش همه</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end catalog -->
+
+    <!-- subscriptions -->
+    @include('sections.abridged')
+    <!-- end subscriptions -->
+
+    <!-- plan -->
+
+    <!-- end plan -->
+
+    <!-- videos -->
+    @include('sections.videos')
+    <!-- end videos -->
+
+    <!-- footer -->
+
+    <!-- end footer -->
+@endsection
