@@ -2,7 +2,7 @@
     @foreach($books as $book)
         <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
             <div class="card">
-                <a href="details.html" class="card__cover">
+                <a href="/books/{{$book->slug}}" class="card__cover">
                     <img src="{{$book->book_image_url}}" alt="">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                          xmlns="../../www.w3.org/2000/svg.html">
