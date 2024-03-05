@@ -9,25 +9,17 @@
                         <span></span>
                     </button>
 
-                    <a href="index.html" class="header__logo">
+                    <a href="/" class="header__logo">
                         <img src="/images/ravangosha.png" alt="Movies & TV Shows, Online cinema HTML Template">
                     </a>
 
                     <ul class="header__nav">
                         <li class="header__nav-item">
-                            <a class="header__nav-link" href="#" role="button" id="dropdownMenu2"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">برگ نخست
-
-                            </a>
-
-                            <ul class="dropdown-menu header__nav-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="index.html">Home style 1</a></li>
-                                <li><a href="index2.html">Home style 2</a></li>
-                                <li><a href="index3.html">Home style 3</a></li>
-                            </ul>
+                            <a class="header__nav-link" href="/">برگ نخست</a>
                         </li>
+
                         <li class="header__nav-item">
-                            <a class="header__nav-link header__nav-link--live" href="live.html">ویدیو ها
+                            <a class="header__nav-link header__nav-link--live" href="/videos">ویدیو ها
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                      xmlns="../../www.w3.org/2000/svg.html">
                                     <circle cx="6" cy="4" r="4" fill="#EB5757" fill-opacity="0.5"/>
@@ -55,39 +47,13 @@
                         </li>
 
                         <li class="header__nav-item">
-                            <a class="header__nav-link" href="#" role="button" id="dropdownMenu1"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">مقالات
-
-                            </a>
-
-                            <ul class="dropdown-menu header__nav-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="catalog.html">Catalog</a></li>
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item" href="#" role="button" id="dropdownMenuSub"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog
-                                        dropdown
-
-                                    </a>
-
-                                    <ul class="dropdown-menu header__nav-menu" aria-labelledby="dropdownMenuSub">
-                                        <li><a href="category.html">Actions</a></li>
-                                        <li><a href="category.html">Biography</a></li>
-                                        <li><a href="category.html">Documentary</a></li>
-                                        <li><a href="category.html">Horror</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="category.html">Category style 1</a></li>
-                                <li><a href="category2.html">Category style 2</a></li>
-                                <li><a href="details.html">Details style 1</a></li>
-                                <li><a href="details2.html">Details style 2</a></li>
-                                <li><a href="details3.html">Details style 3</a></li>
-                            </ul>
+                            <a class="header__nav-link" href="/articles">پژوهش ها</a>
                         </li>
                         <li class="header__nav-item">
-                            <a class="header__nav-link" href="pricing.html">فروشگاه کتاب</a>
+                            <a class="header__nav-link" href="/books">فروشگاه کتاب</a>
                         </li>
                         <li class="header__nav-item">
-                            <a class="header__nav-link header__nav-link--live" href="live.html">خلاصه کتاب
+                            <a class="header__nav-link header__nav-link--live" href="/abridged-books">خلاصه کتاب
 
                             </a>
                         </li>
@@ -107,17 +73,11 @@
 
                             <ul class="dropdown-menu header__nav-menu header__nav-menu--scroll"
                                 aria-labelledby="dropdownMenu3">
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="interview.html">Interview</a></li>
-                                <li><a href="https://flixtv.volkovdesign.com/admin/index.html" target="_blank">Admin
-                                        pages</a></li>
-                                <li><a href="privacy.html">Privacy policy</a></li>
-                                <li><a href="signin.html">Sign in</a></li>
-                                <li><a href="signup.html">Sign up</a></li>
-                                <li><a href="forgot.html">Forgot password</a></li>
-                                <li><a href="404.html">404 Page</a></li>
+                                <li><a href="/pages/about">درباره روانگشا</a></li>
+                                <li><a href="/pages/contact">ارتباط با روانگشا</a></li>
+                                <li><a href="/pages/cooperation">همکاری با روانگشا</a></li>
+                                <li><a href="/pages/rules">قوانین روانگشا</a></li>
+
                             </ul>
                         </li>
                     </ul>
@@ -147,7 +107,7 @@
                             </svg>
                         </button>
 
-                        <a href="signin.html" class="header__user">
+                        <a href="/login" class="header__user">
                             <span>ورود</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path
