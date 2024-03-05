@@ -19,17 +19,13 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <a href="/books" class="catalog__more" type="button">نمایش همه</a>
-                </div>
-            </div>
+
         </div>
     </div>
     <!-- end catalog -->
 
     <!-- subscriptions -->
-    @include('sections.abridged')
+
     <!-- end subscriptions -->
 
     <!-- plan -->
@@ -37,7 +33,7 @@
     <!-- end plan -->
 
     <!-- videos -->
-    @include('sections.videos')
+
     <!-- end videos -->
 
     <!-- footer -->

@@ -13,7 +13,10 @@ class BookController extends Controller
     public function index()
     {
         //
-        return Book::query()->orderByDesc('id')->limit(10)->get();
+        return view('books/index')->with([
+            'books' => Book::query()->get()
+        ]);
+
     }
 
     /**

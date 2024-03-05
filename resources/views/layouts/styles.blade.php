@@ -18,7 +18,7 @@
     }
     @media (max-width: 768px) {
         .text-md {
-            font-size: 16px;
+            font-size: 18px;
         }
     }
 
@@ -35,5 +35,23 @@
     }
     .afc-book-detail .row {
         margin-bottom: 15px;
+    }
+
+    .header__menu span {
+        background-color: var(--afc-color);
+    }
+
+    .section__nav svg {
+        transform: scaleX(-1);
+    }
+
+/*
+*/
+    @media (max-width: 768px) {
+        .card .card__cover{
+            width: 300px;
+            max-width: 100%;
+            margin: auto;
+        }
     }
 </style>

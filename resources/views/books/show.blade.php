@@ -10,7 +10,7 @@
                     <div class="col-12 col-xl-8">
 
                         <!-- trailer -->
-                        <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" class="article__trailer open-video">
+                        <a href="https://www.youtube.com/watch?v=5nme2JpcQi4" class="article__trailer open-video">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                  xmlns="../../www.w3.org/2000/svg.html">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -31,7 +31,7 @@
                     <div class="col-12 col-sm-4 col-xl-3">
 
                         <div class="card">
-                            <a href="details.html" class="card__cover">
+                            <a  class="card__cover">
                                 <img src="{{$book->book_image_url}}" alt="">
                             </a>
                         </div>
@@ -61,8 +61,8 @@
                             <!-- categories -->
                             <div class="categories">
                                 <h3 class="categories__title">برچسب ها:</h3>
-                                <a href="category.html" class="categories__item">توسعه فردی</a>
-                                <a href="category.html" class="categories__item">موفقیت</a>
+                                <a href="/tags" class="categories__item">توسعه فردی</a>
+                                <a href="/tags" class="categories__item">موفقیت</a>
                             </div>
                             <!-- end categories -->
                         </div>
@@ -86,57 +86,57 @@
 
                                 <div class="afc-book-detail">
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col  col-sm-4">
                                             <span>تاریخ انتشار</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->publish_date}}</span>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col col-sm-4">
                                             <span>شابک</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->isbn}}</span>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col col-sm-4">
                                             <span>نوع جلد</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->cover_type}}</span>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col col-sm-4">
                                             <span>قطع</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->size}}</span>
                                         </div>
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col col-sm-4">
                                             <span>تعداد صفحه</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->page_count}}</span>
                                         </div>
                                     </div>
 
 
                                     <div class="row">
-                                        <div class="col-12 col-sm-4">
+                                        <div class="col col-sm-4">
                                             <span>سری چاپ</span>
                                         </div>
-                                        <div class="col-12 col-sm-8">
+                                        <div class="col col-sm-8">
                                             <span>{{$book->print_number}}</span>
                                         </div>
                                     </div>
@@ -188,17 +188,7 @@
                                 <!-- description -->
                                 <div class="tab-pane fade show active" id="tab-description" role="tabpanel">
                                     <div class="card">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid,
-                                            dolorum eius in nostrum placeat tenetur totam velit! Accusamus accusantium
-                                            animi asperiores at beatae consequatur culpa dolore earum enim, est eveniet
-                                            excepturi facere hic id inventore ipsam iusto laborum libero, magnam, modi
-                                            nisi officiis placeat praesentium quo ratione recusandae reprehenderit
-                                            sapiente sit sunt temporibus totam velit veniam veritatis voluptate
-                                            voluptatem voluptates voluptatibus. Ad commodi dicta dolores facere libero
-                                            natus numquam omnis qui quibusdam quidem repellat repellendus, sequi,
-                                            tempora. Accusantium, adipisci amet aspernatur assumenda distinctio dolor
-                                            doloremque dolores facere ipsa magnam minima minus modi nihil pariatur
-                                            provident quasi unde veniam voluptas?</p>
+                                        <p>این کتاب فاقد متن معرفی می باشد</p>
                                     </div>
                                 </div>
                                 <!-- end description -->
@@ -231,7 +221,7 @@
                         <div class="sidebar sidebar--mt">
                             <!-- subscribe -->
 
-                            {{--                            @include('widgets.newsletter')--}}
+{{--                                                        @include('widgets.newsletter')--}}
                             <!-- end subscribe -->
                             {{--                            @include('widgets.similar_books')--}}
                             <!-- new items -->

@@ -21,3 +21,7 @@ Route::get('/curl/authors', [\App\Http\Controllers\Crawler\Tadrij::class, 'downl
 Route::get('/books/by-category/{category}', [\App\Http\Controllers\Crawler\Tadrij::class, 'byCategory']);
 //Route::get('/books', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBooks']);
 Route::get('/books/info', [\App\Http\Controllers\Crawler\Tadrij::class, 'extractBookInfo']);
+
+
+
+Route::get('/pages/{slug}', [\App\Http\Controllers\PageController::class, 'show']);
