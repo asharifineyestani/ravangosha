@@ -26,4 +26,9 @@
             </div>
         </div>
     @endforeach
+
+
+{{--        <div class="catalog__paginator-wrap catalog__paginator-wrap--comments">--}}
+{{--            {{ $books->links() }}--}}
+{{--        </div>--}}
 </div>
