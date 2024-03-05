@@ -12,4 +12,28 @@
     .slider-radio label {
         white-space: nowrap;
     }
+
+    .text-md {
+        font-size: 20px;
+    }
+    @media (max-width: 768px) {
+        .text-md {
+            font-size: 16px;
+        }
+    }
+
+    .text-primary {
+        color: var(--afc-primary-color)
+    }
+
+
+/*    */
+    .afc-book-detail {
+        font-size: 16px;
+        font-weight: 300
+
+    }
+    .afc-book-detail .row {
+        margin-bottom: 15px;
+    }
 </style>
