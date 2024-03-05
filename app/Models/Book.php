@@ -34,4 +34,9 @@ class Book extends Model
     {
         return $this->morphMany(Tag::class, 'taggable');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
