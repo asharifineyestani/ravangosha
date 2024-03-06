@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('authwire', \Afranext\Authwire\App\Livewire\Authwire::class)->name('authwire');
+
+
 Route::resource('books', \App\Http\Controllers\BookController::class);
 
 Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index']);
@@ -25,3 +28,18 @@ Route::get('/books/info', [\App\Http\Controllers\Crawler\Tadrij::class, 'extract
 
 
 Route::get('/pages/{slug}', [\App\Http\Controllers\PageController::class, 'show']);
+
+
+/*
+|--------------------------------------------------------------------------
+| CRUD Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group([
+    'prefix' => config('crud.base.prefix'),
+    'middleware' => ['web']
+], function ($router) {
+    require base_path('routes/crud.php');
+});

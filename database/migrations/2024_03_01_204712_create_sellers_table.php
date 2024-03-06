@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('image_url')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
